@@ -1,0 +1,39 @@
+#!/bin/bash
+# Author: billy el calvo
+
+declare wordlist="$1"
+declare -r workdir=$PWD
+
+#Colours
+greenColour="\e[0;32m\033[1m"
+endColour="\033[0m\e[0m"
+redColour="\e[0;31m\033[1m"
+blueColour="\e[0;34m\033[1m"
+yellowColour="\e[0;33m\033[1m"
+purpleColour="\e[0;35m\033[1m"
+turquoiseColour="\e[0;36m\033[1m"
+grayColour="\e[0;37m\033[1m"
+
+while getopts 'h' flag; do
+	case "${flag}" in
+		h) echo -e "${greenColour}wordlist${endColour} : Put the entire file's path\n${greenColour}output${endColour} : new_wordlist";exit 1;;
+		*) exit 1;;
+	esac
+done
+
+if [ $# -gt 1 ];then
+	echo -e"\n\n${redColour}[!]${endColour} ${yellowColour}Put only one argument${endColour}"
+	exit 1
+fi
+
+if [ ! -f $wordlist ] || [ ! -f "$workdir/$wordlist" ];then
+	echo -e "\n\n${redColour}[!]${endColour} ${yellowColour}File doesnt exist${endColour}\n"
+	exit 1
+fi
+
+cat "$workdir/$wordlist" | while read word;do
+	tr 'A-Z' 'a-z'
+done > new_wordlist
+
+echo -e "\n\n${purpleColour}Done!${endColour}\n"
+exit 0
