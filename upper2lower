@@ -33,7 +33,8 @@ fi
 
 cat "$workdir/$wordlist" | while read word;do
 	tr 'A-Z' 'a-z'
-done > new_wordlist
+done > "${workdir}/new_wordlist"
 
 echo -e "\n\n${purpleColour}Done!${endColour}\n"
 exit 0
+
